@@ -4,9 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add Routes</title>
 </head>
 <body>
+
+<form action="<%= request.getContextPath() %>/RouteServlet" method="post">
+    <input name="source" placeholder="From" required>
+    <input name="destination" placeholder="To" required>
+    <input name="distanceKm" type="number" step="0.1" placeholder="Distance">
+    <input name="fareBase" type="number" step="0.1" placeholder="Fare">
+    <button type="submit">Add Route</button>
+</form>
+
+
 
 </body>
 </html>

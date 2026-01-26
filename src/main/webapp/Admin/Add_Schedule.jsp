@@ -4,9 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add Schedule</title>
 </head>
 <body>
+
+<form action="<%=request.getContextPath()%>/ScheduleServlet" method="post">
+
+    <input type="number" name="busId" placeholder="Bus ID" required>
+    <input type="number" name="routeId" placeholder="Route ID" required>
+
+    <input type="time" name="departureTime" required>
+    <input type="time" name="arrivalTime" required>
+
+    <input type="date" name="journeyDate" required>
+
+    <button type="submit">Add Schedule</button>
+</form>
+
 
 </body>
 </html>
