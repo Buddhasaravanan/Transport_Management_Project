@@ -1,32 +1,30 @@
 package controller;
 
 import java.io.IOException;
-
+import dao.AdminDAO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class AdminLoginServlet 
-{
-	
-	@WebServlet("/Admin")
-	public class AdminLogin extends HttpServlet {
+@WebServlet("/AdminLoginServlet")
+public class AdminLoginServlet extends HttpServlet {
 
-	    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-	            throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
 
-	        String u = req.getParameter("username");
-	        String p = req.getParameter("password");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
 
-	        if ("admin".equals(u) && "admin".equals(p)) {
-	            req.getSession().setAttribute("admin", true);
-	            res.sendRedirect("Admin/Dashboard.jsp");
-	        } else {
-	            res.sendRedirect("User/Login.jsp?error=1");
-	        }
-	    }
-	}
+        AdminDAO dao = new AdminDAO();
+        int adminId = dao.validateAdmin(email, password);
 
-
+        if (adminId > 0) {
+            res.sendRedirect("Admin/Dashboard.jsp");
+        } else {
+            req.setAttribute("error", "Invalid admin login");
+            req.getRequestDispatcher("User/login.jsp").forward(req, res);
+        }
+    }
 }

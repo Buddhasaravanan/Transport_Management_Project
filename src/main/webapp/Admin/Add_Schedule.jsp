@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<%@ include file="Admin-Header.jsp" %>
+<%@ include file="Sidebar.jsp" %>
+
 <form action="<%=request.getContextPath()%>/ScheduleServlet" method="post">
 
     <input type="number" name="busId" placeholder="Bus ID" required>

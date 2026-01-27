@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<%@ include file="Admin-Header.jsp" %>
+<%@ include file="Sidebar.jsp" %>
+
 <form action="<%= request.getContextPath() %>/RouteServlet" method="post">
     <input name="source" placeholder="From" required>
     <input name="destination" placeholder="To" required>

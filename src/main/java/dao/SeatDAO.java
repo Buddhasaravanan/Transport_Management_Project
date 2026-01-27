@@ -53,5 +53,27 @@ public class SeatDAO {
         }
         return list;
     }
+    
+    public void markSeatBooked(int scheduleId, int seatNo) {
+
+        String sql = """
+            UPDATE seats 
+            SET status = 'BOOKED'
+            WHERE schedule_id = ? AND seat_no = ?
+        """;
+
+        try (Connection con = DBconnection.getconnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, scheduleId);
+            ps.setInt(2, seatNo);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 
 }

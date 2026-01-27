@@ -8,7 +8,8 @@
 </head>
 <body>
 
-
+<%@ include file="Admin-Header.jsp" %>
+<%@ include file="Sidebar.jsp" %>
 
 <h2>Add New Bus</h2>
 

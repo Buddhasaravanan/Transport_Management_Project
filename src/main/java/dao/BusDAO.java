@@ -25,7 +25,7 @@ public class BusDAO
 			while(rs.next())
 			{
 				Bus bus = new Bus();
-				bus.setBusid(rs.getInt("bus_id"));
+				bus.setBusId(rs.getInt("bus_id"));
 				bus.setBusnumber(rs.getString("bus_number"));
 				bus.setTotalSeats(rs.getInt("total_seats"));
 				bus.setBusType(rs.getString("bus_type"));
