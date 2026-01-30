@@ -1,11 +1,14 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import utill.DBconnection;
 
 public class SeatDAO {
@@ -73,6 +76,35 @@ public class SeatDAO {
             e.printStackTrace();
         }
     }
+    
+    public List<String[]> getAllSeats(int scheduleId) {
+
+        List<String[]> list = new ArrayList<>();
+
+        String sql = """
+            SELECT seat_no, status 
+            FROM seats 
+            WHERE schedule_id = ?
+        """;
+
+        try (Connection con = DBconnection.getconnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, scheduleId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new String[]{
+                    rs.getString("seat_no"),
+                    rs.getString("status")
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     
 

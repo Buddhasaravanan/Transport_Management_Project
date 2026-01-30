@@ -1,25 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Admin - Dashboard</title>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Admin.css">
 </head>
 <body>
 
-<%@ include file="Admin-Header.jsp" %>
-<%@ include file="Sidebar.jsp" %>
+<div class="admin-container">
 
-<div style="margin-left:220px;padding:20px">
-    <h2>Dashboard</h2>
+    <jsp:include page="Sidebar.jsp" />
 
-    <div>Total Buses:  <b>--</b></div>
-    <div>Total Routes: <b>--</b></div>
-    <div>Total Bookings: <b>--</b></div>
-    <div>Total Revenue: <b>--</b></div>
+    <div class="main-content">
+
+        <jsp:include page="Admin-Header.jsp" />
+
+        <div class="content">
+            <h2>Dashboard</h2>
+
+            
+            <div class="card-grid">
+                <div class="card">Total Users <strong>256</strong></div>
+                <div class="card">Total Bookings <strong>1050</strong></div>
+                <div class="card">Cancelled <strong>98</strong></div>
+                <div class="card">Earnings <strong>₹50,000</strong></div>
+                <div class="card">Total Bus <strong>15</strong></div>
+                <div class="card">Routes <strong>8</strong></div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
-
 
 </body>
 </html>

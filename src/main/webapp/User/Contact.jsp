@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+    <meta charset="UTF-8">
+    <title>My Tickets</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css">
+    </head>
 <body>
 
 </body>

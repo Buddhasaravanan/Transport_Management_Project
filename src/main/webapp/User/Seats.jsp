@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Select Seat</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css">
 
     <style>
         .seat {
@@ -38,31 +39,43 @@
 <h2>Select Your Seat</h2>
 
 <%
-    List<Integer> seats = (List<Integer>) request.getAttribute("seats");
+List<String[]> seats = (List<String[]>) request.getAttribute("seats");
     int scheduleId = (int) request.getAttribute("scheduleId");
 %>
 
-<form action="<%=request.getContextPath()%>/BookServlet" method="get">
+<form action="<%=request.getContextPath()%>/ConfirmBookingServlet" method="get">
     <input type="hidden" name="scheduleId" value="<%= scheduleId %>">
     <input type="hidden" name="seatNo" id="seatNo">
 
     <div>
-        <% 
-            if (seats != null && !seats.isEmpty()) {
-                for (Integer seat : seats) {
-        %>
-            <div id="seat-<%=seat%>"
-                 class="seat available"
-                 onclick="selectSeat(<%=seat%>)">
-                <%= seat %>
-            </div>
-        <% 
-                }
-            } else {
-        %>
-            <p>No seats available</p>
-        <% } %>
+<%
+if (seats != null && !seats.isEmpty()) {
+    for (String[] s : seats) {
+        String seatNo = s[0];
+        String status = s[1];
+
+        if ("BOOKED".equals(status)) {
+%>
+    <div class="seat booked"><%= seatNo %></div>
+<%
+        } else {
+%>
+    <div id="seat-<%=seatNo%>"
+         class="seat available"
+         onclick="selectSeat(<%=seatNo%>)">
+        <%= seatNo %>
     </div>
+<%
+        }
+    }
+} else {
+%>
+    <p>No seats available</p>
+<%
+}
+%>
+</div>
+
 
     <br><br>
     <button type="submit">Confirm Booking</button>

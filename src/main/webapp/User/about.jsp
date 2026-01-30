@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>About</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css">
 </head>
 <body>
 

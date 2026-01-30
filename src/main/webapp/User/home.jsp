@@ -1,30 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Classic Bus – Book Tickets</title>
-<link rel="stylesheet" href="styles.css">
+    <title>Classic Bus</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css">
 </head>
-<body>
+<body class="home-bg">
 
 <jsp:include page="header.jsp"/>
 
-<div>
+<section class="hero">
+    <div class="search-card">
 
- <div class= "search Box">
- 
- <form action="<%= request.getContextPath() %>/SearchServlet" method="get">
-    <input type="text" name= "from" placeholder="Going From" required>
-    <input type="text" name= "to" placeholder="Going To" required>
-    <input type="date" name= "date" required> 
-    <button type="submit">Search</button>
-</form>
-     
- </div>
+        <form action="<%=request.getContextPath()%>/SearchServlet" method="get" class="search-form">
+            <input type="text" name="from" placeholder="Going From" required>
+            <span class="swap">⇄</span>
+            <input type="text" name="to" placeholder="Going To" required>
+            <input type="date" name="date" required>
 
-</div>
+            <button type="submit">Search</button>
+        </form>
+        
+
+    </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps">
+    <h2>Buy tickets in 3 easy steps</h2>
+
+    <div class="step-grid">
+        <div class="step">
+            <h3>Search</h3>
+            <p>Choose source, destination & date</p>
+        </div>
+        <div class="step">
+            <h3>Select</h3>
+            <p>Choose bus & seat</p>
+        </div>
+        <div class="step">
+            <h3>Payment</h3>
+            <p>Confirm booking</p>
+        </div>
+    </div>
+</section>
+
 
 </body>
 </html>

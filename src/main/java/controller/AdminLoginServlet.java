@@ -24,7 +24,7 @@ public class AdminLoginServlet extends HttpServlet {
             res.sendRedirect("Admin/Dashboard.jsp");
         } else {
             req.setAttribute("error", "Invalid admin login");
-            req.getRequestDispatcher("User/login.jsp").forward(req, res);
+            req.getRequestDispatcher("User/Login.jsp").forward(req, res);
         }
     }
 }

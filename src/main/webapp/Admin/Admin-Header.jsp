@@ -8,14 +8,15 @@
 </head>
 <body>
 
-<%@ include file="admin-auth.jsp" %>
 
-<div style="background:green;color:white;padding:10px">
-    <h2>Classic Bus – Admin</h2>
-    <a href="<%=request.getContextPath()%>/Admin/logout.jsp" style="color:white">
-        Logout
-    </a>
+<div class="admin-header">
+    <h1>Classic Bus - Admin</h1>
+    <div class="profile">
+        Admin |
+        <a href="<%=request.getContextPath()%>/User/logout.jsp">Logout</a>
+    </div>
 </div>
+
 
 
 </body>

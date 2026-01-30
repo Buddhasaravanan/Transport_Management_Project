@@ -20,12 +20,12 @@ public class SeatServlet extends HttpServlet {
         int scheduleId = Integer.parseInt(req.getParameter("scheduleId"));
 
         SeatDAO dao = new SeatDAO();
-        List<Integer> seats = dao.getAvailableSeats(scheduleId);
+        List<String[]> seats = dao.getAllSeats(scheduleId);
 
-        req.setAttribute("scheduleId", scheduleId);
         req.setAttribute("seats", seats);
+        req.setAttribute("scheduleId", scheduleId);
 
-        req.getRequestDispatcher("/User/Seats.jsp")
-           .forward(req, res);
+        req.getRequestDispatcher("/User/select-seat.jsp").forward(req, res);
+
     }
 }

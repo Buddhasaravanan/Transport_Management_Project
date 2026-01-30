@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Available Buses</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css"> 
 </head>
 <body>
 
@@ -25,35 +26,35 @@
     </tr>
 
 <%
-    List<Object[]> results = (List<Object[]>) request.getAttribute("results");
+List<Object[]> list = (List<Object[]>) request.getAttribute("results");
+%>
 
-    if (results != null && !results.isEmpty()) {
-        for (Object[] row : results) {
+<% if (list != null && !list.isEmpty()) {
+   for (Object[] row : list) {
 %>
 <tr>
-    <td><%= row[0] %></td>  
-    <td><%= row[1] %></td>  
-    <td><%= row[2] %></td>  
-    <td><%= row[3] %></td>  
-    <td><%= row[4] %></td>  
-    <td><%= row[5] %></td>  
-    <td><%= row[6] %></td>  
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td>
+    <td><%= row[2] %></td>
+    <td><%= row[3] %></td>
+    <td><%= row[4] %></td>
+    <td><%= row[5] %></td>
+    <td>₹ <%= row[6] %></td>
     <td>
         <a href="<%=request.getContextPath()%>/SeatServlet?scheduleId=<%=row[7]%>">
-    Select Seat
-</a>
+            Select Seat
+        </a>
     </td>
 </tr>
 <%
-        }
-    } else {
+   }
+} else {
 %>
 <tr>
     <td colspan="8">No buses available</td>
 </tr>
-<%
-    }
-%>
+<% } %>
+
 
 </table>
 

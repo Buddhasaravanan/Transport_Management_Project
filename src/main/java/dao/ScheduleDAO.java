@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -87,41 +88,58 @@ public class ScheduleDAO {
 
         List<Object[]> list = new ArrayList<>();
 
-        String sql =
-            "SELECT b.bus_number, r.source, r.destination, " +
-            "s.journey_date, s.departure_time, s.arrival_time, r.fare_base, b.bus_id " +
-            "FROM schedules s " +
-            "JOIN bus b ON s.bus_id = b.bus_id " +
-            "JOIN routes r ON s.route_id = r.route_id " +
-            "WHERE r.source = ? AND r.destination = ? AND s.journey_date = ?";
+        String sql = """
+            SELECT 
+			  b.bus_number,
+			  r.source,
+			  r.destination,
+			  s.journey_date,
+			  s.departure_time,
+			  s.arrival_time,
+			  r.fare_base,
+			  s.schedule_id
+			FROM schedules s
+			JOIN route r ON s.route_id = r.route_id
+			JOIN bus b ON s.bus_id = b.bus_id
+			WHERE LOWER(r.source) = LOWER(?)
+			  AND LOWER(r.destination) = LOWER(?)
+			  AND s.journey_date = ?
 
-        try (
-            Connection con = DBconnection.getconnection();
-            PreparedStatement ps = con.prepareStatement(sql)
-        ) {
-            ps.setString(1, from);
-            ps.setString(2, to);
-            ps.setDate(3, java.sql.Date.valueOf(date));
+        """;
+
+        try (Connection con = DBconnection.getconnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+//            ps.setString(1, from);
+//            ps.setString(2, to);
+//            ps.setDate(3, java.sql.Date.valueOf(date));
+        	
+        	ps.setString(1, from.trim());
+        	ps.setString(2, to.trim());
+        	ps.setDate(3, Date.valueOf(date));
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 list.add(new Object[]{
-                    rs.getString(1),  
-                    rs.getString(2),  
-                    rs.getString(3),  
-                    rs.getDate(4),    
-                    rs.getTime(5),    
-                    rs.getTime(6),    
-                    rs.getDouble(7),  
-                    rs.getInt(8)      
+                    rs.getString("bus_number"),
+                    rs.getString("source"),
+                    rs.getString("destination"),
+                    rs.getDate("journey_date"),
+                    rs.getTime("departure_time"),
+                    rs.getTime("arrival_time"),
+                    rs.getDouble("fare_base"),
+                    rs.getInt("schedule_id")
                 });
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return list;
     }
+
 
 
 }

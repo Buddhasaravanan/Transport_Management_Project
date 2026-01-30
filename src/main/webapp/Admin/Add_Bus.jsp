@@ -1,38 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Add Bus</title>
-</head>
-<body>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Bus" %>
+<%@ page import="dao.BusDAO" %>
 
 <%@ include file="Admin-Header.jsp" %>
 <%@ include file="Sidebar.jsp" %>
 
-<h2>Add New Bus</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bus</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Admin.css">
+</head>
 
-<form action="<%= request.getContextPath() %>/BusServlet" method="post">
+<body>
+<div class="admin-content">
 
-    <label>Bus Number</label><br>
-    <input type="text" name="busNumber" required><br><br>
+    
+    <div class="card">
+        <h3>Add Bus</h3>
 
-    <label>Total Seats</label><br>
-    <input type="number" name="totalSeats" required><br><br>
+        <form action="<%=request.getContextPath()%>/BusServlet" method="post">
+            <input type="text" name="busNumber" placeholder="Bus Number" required>
+            <select name="busType">
+                <option value="AC">AC</option>
+                <option value="NON-AC">Non AC</option>
+                <option value="VOLVO">Volvo</option>
+                <option value="NON-AC SLEEPER">Non Ac Sleeper</option>
+                <option value="AC SLEEPER">AC Sleeper</option>
+            </select>
+            <input type="number" name="totalSeats" placeholder="Total Seats" required>
+            <button type="submit">Add Bus</button>
+        </form>
+    </div>
 
-    <label>Bus Type</label><br>
-    <select name="busType">
-        <option value="AC">AC</option>
-        <option value="Non-AC">Non-AC</option>
-        <option value="Sleeper">Sleeper</option>
-        <option value="Seater">Seater</option>
-        <option value="Volvo">Volvo</option>
-    </select><br><br>
+    <!-- BUS LIST TABLE -->
+    <div class="card">
+        <h3>Existing Buses</h3>
 
-    <button type="submit">Add Bus</button>
+        <table class="admin-table">
+            <tr>
+                <th>ID</th>
+                <th>Bus No</th>
+                <th>Type</th>
+                <th>Seats</th>
+            </tr>
 
-</form>
+            <%
+                BusDAO dao = new BusDAO();
+                List<Bus> buses = dao.getAllBuses();
+                for (Bus b : buses) {
+            %>
+            <tr>
+                <td><%= b.getBusId() %></td>
+                <td><%= b.getBusnumber() %></td>
+                <td><%= b.getBusType() %></td>
+                <td><%= b.getTotalSeats() %></td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+
+</div>
 
 </body>
 </html>

@@ -21,6 +21,8 @@ public class BusServlet extends HttpServlet
             
             {
 				String busNumber = request.getParameter("busNumber");
+//				System.out.println("Bus Number: " + busNumber); 
+				
 				int totalSeats = Integer.parseInt(request.getParameter("totalSeats"));
 				String busType = request.getParameter("busType");
 				

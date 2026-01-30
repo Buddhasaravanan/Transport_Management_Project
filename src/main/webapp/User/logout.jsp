@@ -8,5 +8,10 @@
 </head>
 <body>
 
+<%
+session.invalidate();
+response.sendRedirect(request.getContextPath() + "/User/Login.jsp");
+%>
+
 </body>
 </html>

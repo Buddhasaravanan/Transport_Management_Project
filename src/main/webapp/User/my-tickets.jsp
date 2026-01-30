@@ -1,5 +1,11 @@
 <%@ page import="java.util.*" %>
 
+<head>
+    <meta charset="UTF-8">
+    <title>My Tickets</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/Styles.css">
+    </head>
+
 <h2>My Tickets</h2>
 
 <table border="1">

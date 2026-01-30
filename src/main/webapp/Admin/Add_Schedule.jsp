@@ -1,29 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Add Schedule</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/Admin.css">
 </head>
 <body>
 
-<%@ include file="Admin-Header.jsp" %>
-<%@ include file="Sidebar.jsp" %>
+<div class="admin-container">
 
-<form action="<%=request.getContextPath()%>/ScheduleServlet" method="post">
+    <%@ include file="Sidebar.jsp" %>
 
-    <input type="number" name="busId" placeholder="Bus ID" required>
-    <input type="number" name="routeId" placeholder="Route ID" required>
+    <div class="main-content">
+        <%@ include file="Admin-Header.jsp" %>
 
-    <input type="time" name="departureTime" required>
-    <input type="time" name="arrivalTime" required>
+        <div class="content">
+            <h2>Add Schedule</h2>
 
-    <input type="date" name="journeyDate" required>
+            <div class="card form-card">
+                <form action="<%=request.getContextPath()%>/ScheduleServlet" method="post">
 
-    <button type="submit">Add Schedule</button>
-</form>
+                    <label>Bus ID</label>
+                    <input type="number" name="busId" required>
 
+                    <label>Route ID</label>
+                    <input type="number" name="routeId" required>
+
+                    <label>Journey Date</label>
+                    <input type="date" name="journeyDate" required>
+
+                    <label>Departure Time</label>
+                    <input type="time" name="departureTime" required>
+
+                    <label>Arrival Time</label>
+                    <input type="time" name="arrivalTime" required>
+
+                    <button class="btn btn-primary">Add Schedule</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

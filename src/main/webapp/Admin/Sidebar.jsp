@@ -4,20 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 
-<div style="width:200px;float:left;background:#e6ffe6;height:100vh">
-    <ul>
-        <li><a href="Dashboard.jsp">Dashboard</a></li>
-        <li><a href="Add_Bus.jsp">Bus</a></li>
-        <li><a href="Add_routes.jsp">Routes</a></li>
-        <li><a href="Add_Schedule.jsp">Schedule</a></li>
-        <li><a href="Bookings.jsp">Bookings</a></li>
-        <li><a href="User/Seats.jsp">Seats</a></li>
-    </ul>
+<div class="sidebar">
+    <h2>CLASSIC BUS</h2>
+
+    <a href="Dashboard.jsp" class="active">Dashboard</a>
+    <a href="Bookings.jsp">Bookings</a>
+    <a href="Seats.jsp">Seats</a>
+    <a href="Add_Bus.jsp">Bus</a>
+    <a href="Add_routes.jsp">Routes</a>
+    <a href="Add_Schedule.jsp">Schedule</a>
 </div>
+
 
 
 </body>

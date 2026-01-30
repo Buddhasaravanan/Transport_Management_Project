@@ -13,23 +13,37 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ConfirmBookingServlet")
 public class ConfirmBookingServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+    // STEP 1 — SHOW CONFIRM PAGE
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
         int scheduleId = Integer.parseInt(req.getParameter("scheduleId"));
         int seatNo = Integer.parseInt(req.getParameter("seatNo"));
 
-        int userId = 1; // HARD CODE (no user login as you said)
+        req.setAttribute("scheduleId", scheduleId);
+        req.setAttribute("seatNo", seatNo);
 
-        // 1️⃣ BOOK SEAT
+        req.getRequestDispatcher("/User/confirm-booking.jsp")
+           .forward(req, res);
+    }
+
+    // STEP 2 — FINAL BOOKING (POST)
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws IOException {
+
+        int scheduleId = Integer.parseInt(req.getParameter("scheduleId"));
+        int seatNo = Integer.parseInt(req.getParameter("seatNo"));
+
+        int userId = 1; // no user login
+
         BookingDAO bookingDAO = new BookingDAO();
         bookingDAO.book(scheduleId, userId, seatNo);
 
-        // 2️⃣ MARK SEAT AS BOOKED
         SeatDAO seatDAO = new SeatDAO();
         seatDAO.markSeatBooked(scheduleId, seatNo);
 
-        // 3️⃣ REDIRECT TO MY TICKETS
-        res.sendRedirect(req.getContextPath() + "/MyTicketsServlet");
+        res.sendRedirect(req.getContextPath() + "/User/my-tickets.jsp");
     }
 }

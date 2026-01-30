@@ -16,9 +16,10 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String from = request.getParameter("from");
-        String to = request.getParameter("to");
+        String from = request.getParameter("from").trim();
+        String to = request.getParameter("to").trim();
         String date = request.getParameter("date");
+
 
         ScheduleDAO dao = new ScheduleDAO();
         List<Object[]> results = dao.searchSchedules(from, to, date);
@@ -26,6 +27,11 @@ public class SearchServlet extends HttpServlet {
         request.setAttribute("results", results);
         request.getRequestDispatcher("/User/Bus-List.jsp")
                .forward(request, response);
+        
+        System.out.println("FROM = " + from);
+        System.out.println("TO = " + to);
+        System.out.println("DATE = " + date);
+        System.out.println("RESULT SIZE = " + results.size());
     }
 }
 

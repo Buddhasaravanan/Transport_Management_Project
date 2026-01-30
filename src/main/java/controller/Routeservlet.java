@@ -20,7 +20,7 @@ public class Routeservlet extends HttpServlet {
         r.setSource(req.getParameter("source"));
         r.setDestination(req.getParameter("destination"));
         r.setDistance(Double.parseDouble(req.getParameter("distanceKm")));
-        r.setFare(Double.parseDouble(req.getParameter("fareBase")));
+        r.setFare(Double.parseDouble(req.getParameter("fare")));
 
         new RouteDAO().addRoute(r);
 
