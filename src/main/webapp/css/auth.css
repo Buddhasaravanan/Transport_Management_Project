@@ -1,0 +1,122 @@
+/* ===== PAGE BASE ===== */
+body {
+    background: linear-gradient(180deg, #eef8f1 0%, #f8fbf9 38%, #ffffff 100%);
+    color: #173c27;
+}
+
+/* ===== AUTH LAYOUT ===== */
+.auth-wrapper {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 42px 16px 56px;
+}
+
+/* ===== AUTH CARD ===== */
+.auth-card {
+    width: min(420px, 100%);
+    background: #ffffff;
+    padding: 34px;
+    border-radius: 24px;
+    box-shadow: 0 18px 40px rgba(16, 55, 31, 0.12);
+    border: 1px solid #e1efe6;
+}
+
+/* ===== TITLE ===== */
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 28px;
+    color: #127541;
+}
+
+/* ===== FORM ===== */
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ===== INPUTS ===== */
+.auth-card input {
+    width: 100%;
+    padding: 14px 15px;
+    border-radius: 14px;
+    border: 1px solid #d6e7dc;
+    font-size: 15px;
+    background: #fbfefd;
+    color: #173c27;
+    outline: none;
+}
+
+.auth-card input:focus {
+    border-color: #79c796;
+    box-shadow: 0 0 0 4px rgba(31, 157, 92, 0.12);
+}
+
+/* ===== BUTTON ===== */
+.auth-card button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #0f7a43, #1ba05d);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(15, 122, 67, 0.18);
+}
+
+.auth-card button:hover {
+    opacity: 0.95;
+}
+
+/* ===== FOOTER TEXT ===== */
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #62756b;
+    line-height: 1.6;
+}
+
+.auth-footer a {
+    color: #127541;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* ===== MESSAGES ===== */
+.auth-error,
+.auth-success {
+    text-align: center;
+    margin-top: 14px;
+    font-weight: 600;
+}
+
+.auth-error {
+    color: #d32f2f;
+}
+
+.auth-success {
+    color: #2e7d32;
+}
+
+@media (max-width: 720px) {
+    .auth-wrapper {
+        min-height: auto;
+        align-items: flex-start;
+        padding-top: 28px;
+    }
+
+    .auth-card {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+
+    .auth-card h2 {
+        font-size: 24px;
+    }
+}

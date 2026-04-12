@@ -13,17 +13,29 @@ import model.Route;
 @WebServlet("/RouteServlet")
 public class Routeservlet extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
+        String source = req.getParameter("source");
+        String destination = req.getParameter("destination");
+        String distanceKm = req.getParameter("distanceKm");
+        String fare = req.getParameter("fare");
+
+        if (source == null || destination == null || distanceKm == null || fare == null
+                || source.isBlank() || destination.isBlank() || distanceKm.isBlank() || fare.isBlank()) {
+            res.sendRedirect(req.getContextPath() + "/Admin/Add_routes.jsp");
+            return;
+        }
+
         Route r = new Route();
-        r.setSource(req.getParameter("source"));
-        r.setDestination(req.getParameter("destination"));
-        r.setDistance(Double.parseDouble(req.getParameter("distanceKm")));
-        r.setFare(Double.parseDouble(req.getParameter("fare")));
+        r.setSource(source.trim());
+        r.setDestination(destination.trim());
+        r.setDistance(Double.parseDouble(distanceKm));
+        r.setFare(Double.parseDouble(fare));
 
         new RouteDAO().addRoute(r);
 
-        res.sendRedirect("Admin/Add_routes.jsp");
+        res.sendRedirect(req.getContextPath() + "/Admin/Add_routes.jsp");
     }
 }

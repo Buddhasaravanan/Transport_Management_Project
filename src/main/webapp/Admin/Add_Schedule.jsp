@@ -14,27 +14,52 @@
         <%@ include file="Admin-Header.jsp" %>
 
         <div class="content">
-            <h2>Add Schedule</h2>
+            <section class="page-hero">
+                <div>
+                    <h2>Schedule Planning</h2>
+                    <p>Map buses to routes, set journey dates, and define departure and arrival timing for customer bookings.</p>
+                </div>
+                <span class="page-chip">Schedule admin</span>
+            </section>
 
             <div class="card form-card">
-                <form action="<%=request.getContextPath()%>/ScheduleServlet" method="post">
+                <div class="admin-section-head">
+                    <div>
+                        <span class="admin-kicker">Create schedule</span>
+                        <h3>Add Schedule</h3>
+                        <p>Use valid bus and route IDs from your admin inventory, then publish a new trip for booking.</p>
+                    </div>
+                </div>
 
-                    <label>Bus ID</label>
-                    <input type="number" name="busId" required>
+                <form action="<%=request.getContextPath()%>/ScheduleServlet" method="post" class="admin-form">
+                    <div class="form-grid">
+                        <div>
+                            <label for="busId">Bus ID</label>
+                            <input id="busId" type="number" name="busId" required>
+                        </div>
+                        <div>
+                            <label for="routeId">Route ID</label>
+                            <input id="routeId" type="number" name="routeId" required>
+                        </div>
+                    </div>
 
-                    <label>Route ID</label>
-                    <input type="number" name="routeId" required>
+                    <div class="form-grid">
+                        <div>
+                            <label for="journeyDate">Journey Date</label>
+                            <input id="journeyDate" type="date" name="journeyDate" required>
+                        </div>
+                        <div>
+                            <label for="departureTime">Departure Time</label>
+                            <input id="departureTime" type="time" name="departureTime" required>
+                        </div>
+                    </div>
 
-                    <label>Journey Date</label>
-                    <input type="date" name="journeyDate" required>
+                    <div>
+                        <label for="arrivalTime">Arrival Time</label>
+                        <input id="arrivalTime" type="time" name="arrivalTime" required>
+                    </div>
 
-                    <label>Departure Time</label>
-                    <input type="time" name="departureTime" required>
-
-                    <label>Arrival Time</label>
-                    <input type="time" name="arrivalTime" required>
-
-                    <button class="btn btn-primary">Add Schedule</button>
+                    <button class="btn btn-primary" type="submit">Add Schedule</button>
                 </form>
             </div>
 

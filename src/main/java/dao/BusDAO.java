@@ -70,6 +70,40 @@ public class BusDAO
 		
 		return false;
 	}
+	
+	public int getTotalSeats(int busId)
+	{
+		int totalSeats = 0;
+		
+		String sql = "SELECT total_seats FROM bus WHERE bus_id = ?";
+		
+		try
+		{
+			Connection con = DBconnection.getconnection();
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, busId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next())
+			{
+				totalSeats = rs.getInt("total_seats");
+			}
+			
+			rs.close();
+			ps.close();
+			con.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return totalSeats;
+	}
+
+
+
 
 	
 	

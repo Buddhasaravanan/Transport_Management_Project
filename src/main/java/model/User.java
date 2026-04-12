@@ -16,19 +16,19 @@ public class User
 		this.userId = userId;
 	}
 	
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 	
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public String getemail() {
+	public String getEmail() {
 		return email;
 	}
 	
-	public void setemail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	

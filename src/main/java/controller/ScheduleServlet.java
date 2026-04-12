@@ -3,14 +3,11 @@ package controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
+import dao.BusDAO;
 import dao.ScheduleDAO;
-import dao.SearchDAO;
 import dao.SeatDAO;
-import model.Bus;
 import model.Schedule;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,31 +15,37 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ScheduleServlet")
 public class ScheduleServlet extends HttpServlet {
-	
-	protected void doPost(HttpServletRequest req, HttpServletResponse res)
-	        throws IOException {
 
-	    Schedule s = new Schedule();
-	    s.setBusId(Integer.parseInt(req.getParameter("busId")));
-	    s.setRouteId(Integer.parseInt(req.getParameter("routeId")));
-	    
-	    String dep = req.getParameter("departureTime");
-	    String arr = req.getParameter("arrivalTime");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws IOException {
 
-	    s.setDepartureTime(Time.valueOf(dep + ":00"));
-	    s.setArrivalTime(Time.valueOf(arr + ":00"));
+        String busIdParam = req.getParameter("busId");
+        String routeIdParam = req.getParameter("routeId");
+        String dep = req.getParameter("departureTime");
+        String arr = req.getParameter("arrivalTime");
+        String journeyDate = req.getParameter("journeyDate");
 
-	    
-	    s.setJourneyDate(Date.valueOf(req.getParameter("journeyDate")));
+        if (busIdParam == null || routeIdParam == null || dep == null || arr == null || journeyDate == null
+                || busIdParam.isBlank() || routeIdParam.isBlank() || dep.isBlank() || arr.isBlank() || journeyDate.isBlank()) {
+            res.sendRedirect(req.getContextPath() + "/Admin/Add_Schedule.jsp");
+            return;
+        }
 
-	    ScheduleDAO dao = new ScheduleDAO();
-	    int scheduleId = dao.addSchedule(s);
+        Schedule s = new Schedule();
+        s.setBusId(Integer.parseInt(busIdParam));
+        s.setRouteId(Integer.parseInt(routeIdParam));
+        s.setDepartureTime(Time.valueOf(dep + ":00"));
+        s.setArrivalTime(Time.valueOf(arr + ":00"));
+        s.setJourneyDate(Date.valueOf(journeyDate));
 
-	    SeatDAO seatDAO = new SeatDAO();
-	    seatDAO.createSeats(scheduleId, 40);
+        ScheduleDAO dao = new ScheduleDAO();
+        int scheduleId = dao.addSchedule(s);
 
-	    res.sendRedirect("Admin/Add_Schedule.jsp");
-	}
+        BusDAO busDAO = new BusDAO();
+        int totalSeats = busDAO.getTotalSeats(s.getBusId());
+        SeatDAO.createSeatsIfNotExist(scheduleId, totalSeats);
 
-
+        res.sendRedirect(req.getContextPath() + "/Admin/Add_Schedule.jsp");
+    }
 }

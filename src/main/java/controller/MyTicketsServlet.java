@@ -4,30 +4,31 @@ import java.io.IOException;
 import java.util.List;
 
 import dao.BookingDAO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
 
-@WebServlet("/MyTickets")
+@WebServlet("/MyTicketsServlet")
 public class MyTicketsServlet extends HttpServlet {
 
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
-            throws IOException {
-    	
-    	int userId = 1; 
+            throws ServletException, IOException {
+
+        // 🔐 LOGIN CHECK
+        User user = (User) req.getSession().getAttribute("loggedUser");
+        if (user == null) {
+            res.sendRedirect(req.getContextPath() + "/User/Login.jsp");
+            return;
+        }
 
         BookingDAO dao = new BookingDAO();
-//      req.setAttribute("tickets", dao.getUserBookings(1)); 
-        List<Object[]> tickets = dao.getMyBookings(userId);
+        List<Object[]> tickets = dao.getUserTickets(user.getUserId());
 
-        try {
-            req.getRequestDispatcher("/User/my-tickets.jsp")
-               .forward(req, res);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        req.setAttribute("tickets", tickets);
+        req.getRequestDispatcher("/User/my-tickets.jsp").forward(req, res);
     }
 }
-
-

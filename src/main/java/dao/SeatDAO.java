@@ -13,56 +13,67 @@ import utill.DBconnection;
 
 public class SeatDAO {
 
-    public void createSeats(int scheduleId, int totalSeats) {
+	public static void createSeatsIfNotExist(int scheduleId, int totalSeats) {
 
-        String sql =
-            "INSERT INTO seats (schedule_id, seat_no, status) VALUES (?, ?, 'AVAILABLE')";
+	    String checkSql = "SELECT COUNT(*) FROM seats WHERE schedule_id = ?";
+	    String insertSql = "INSERT INTO seats (schedule_id, seat_no, status) VALUES (?, ?, 'AVAILABLE')";
 
-        try (Connection con = DBconnection.getconnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+	    try (Connection con = DBconnection.getconnection();
+	         PreparedStatement checkPs = con.prepareStatement(checkSql)) {
 
-            for (int i = 1; i <= totalSeats; i++) {
-                ps.setInt(1, scheduleId);
-                ps.setInt(2, i);
-                ps.addBatch();
-            }
-            ps.executeBatch();
+	        checkPs.setInt(1, scheduleId);
+	        ResultSet rs = checkPs.executeQuery();
+	        rs.next();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	        // seats already created → STOP
+	        if (rs.getInt(1) > 0) {
+	            return;
+	        }
 
-    public List<Integer> getAvailableSeats(int scheduleId) {
+	        PreparedStatement insertPs = con.prepareStatement(insertSql);
+	        for (int i = 1; i <= totalSeats; i++) {
+	            insertPs.setInt(1, scheduleId);
+	            insertPs.setInt(2, i);
+	            insertPs.addBatch();
+	        }
+	        insertPs.executeBatch();
 
-        List<Integer> list = new ArrayList<>();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 
-        String sql = """
-            SELECT seat_no FROM seats
-            WHERE schedule_id = ? AND status = 'AVAILABLE'
-        """;
 
-        try (Connection con = DBconnection.getconnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, scheduleId);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                list.add(rs.getInt("seat_no"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+//    public List<Integer> getAvailableSeats(int scheduleId) {
+//
+//        List<Integer> list = new ArrayList<>();
+//
+//        String sql = """
+//            SELECT seat_no FROM seats
+//            WHERE schedule_id = ? AND status = 'AVAILABLE'
+//        """;
+//
+//        try (Connection con = DBconnection.getconnection();
+//             PreparedStatement ps = con.prepareStatement(sql)) {
+//
+//            ps.setInt(1, scheduleId);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                list.add(rs.getInt("seat_no"));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
     
-    public void markSeatBooked(int scheduleId, int seatNo) {
+    public boolean markSeatBooked(int scheduleId, int seatNo) {
 
         String sql = """
             UPDATE seats 
             SET status = 'BOOKED'
-            WHERE schedule_id = ? AND seat_no = ?
+            WHERE schedule_id = ? AND seat_no = ? AND status = 'AVAILABLE'
         """;
 
         try (Connection con = DBconnection.getconnection();
@@ -70,12 +81,15 @@ public class SeatDAO {
 
             ps.setInt(1, scheduleId);
             ps.setInt(2, seatNo);
-            ps.executeUpdate();
+
+            return ps.executeUpdate() == 1; // 1 row = success
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
+
     
     public List<String[]> getAllSeats(int scheduleId) {
 
@@ -105,6 +119,27 @@ public class SeatDAO {
         return list;
     }
 
+    public boolean markSeatAvailable(int scheduleId, int seatNo) {
+
+        String sql = """
+            UPDATE seats 
+            SET status = 'AVAILABLE'
+            WHERE schedule_id = ? AND seat_no = ?
+        """;
+
+        try (Connection con = DBconnection.getconnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, scheduleId);
+            ps.setInt(2, seatNo);
+
+            return ps.executeUpdate() == 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     
 

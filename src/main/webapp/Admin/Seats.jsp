@@ -17,50 +17,41 @@
         <%@ include file="Admin-Header.jsp" %>
 
         <div class="content">
-            <h2>Seat Management</h2>
+            <section class="page-hero">
+                <div>
+                    <h2>Seat Management</h2>
+                    <p>Quickly review seat availability by schedule and inspect how seats are being offered in the booking flow.</p>
+                </div>
+                <span class="page-chip">Seat admin</span>
+            </section>
 
             <div class="card">
+                <div class="admin-section-head">
+                    <div>
+                        <span class="admin-kicker">Seat lookup</span>
+                        <h3>Schedule seats</h3>
+                        <p>Use the schedule field below as a placeholder lookup and preview sample seat actions already connected in the app.</p>
+                    </div>
+                </div>
 
                 <div class="seat-filter">
-                    <label>Schedule ID:</label>
-                    <input type="text" placeholder="Enter Schedule ID">
-                    <button class="btn">Search</button>
+                    <label for="scheduleSearch">Schedule ID</label>
+                    <input id="scheduleSearch" type="text" placeholder="Enter Schedule ID">
+                    <button class="btn" type="button">Search</button>
                 </div>
 
                 <div class="seat-grid">
-                    
-                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=1">
-    <div class="seat available">1</div>
-</a>
-                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=2">
-    <div class="seat available">2</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=3">
-    <div class="seat available">3</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=4">
-    <div class="seat available">4</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=5">
-    <div class="seat available">5</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=6">
-    <div class="seat available">6</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=7">
-    <div class="seat available">7</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=8">
-    <div class="seat available">8</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=9">
-    <div class="seat available">9</div>
-</a>
-<a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=10">
-    <div class="seat available">10</div>
-</a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=1"><div class="seat available">1</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=2"><div class="seat available">2</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=3"><div class="seat available">3</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=4"><div class="seat available">4</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=5"><div class="seat available">5</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=6"><div class="seat available">6</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=7"><div class="seat available">7</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=8"><div class="seat available">8</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=9"><div class="seat available">9</div></a>
+                    <a href="<%=request.getContextPath()%>/ConfirmBookingServlet?scheduleId=1&seatNo=10"><div class="seat available">10</div></a>
                 </div>
-
             </div>
         </div>
     </div>
